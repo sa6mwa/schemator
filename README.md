@@ -6,6 +6,8 @@
 
 - **Build-time friendly** – Designed to be used from `go generate` so that schema files are produced as part of your build pipeline.
 - **Comment aware** – Adds Go doc comments as JSON Schema `description` fields by calling `Reflector.AddGoComments` for every package involved.
+- **Whitespace aware** – After harvesting comments, schemator collapses wrapped lines and newlines so descriptions appear as clean single-line sentences in your final JSON schema.
+- **Whitespace aware** – After harvesting comments, schemator collapses wrapped lines and newlines so descriptions appear as clean single-line sentences in your final JSON schema.
 - **Automatic import discovery** – When you do not provide any import configuration, schemator inspects the types you generate from and infers all packages (local module, standard library, third-party dependencies) required for comment extraction.
 - **Multi-package support** – Manually add extra packages when you want to enrich the generated schema with comments from other modules or custom directories.
 

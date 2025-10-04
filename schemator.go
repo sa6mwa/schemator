@@ -356,12 +356,38 @@ func addGoCommentsForImportPath(r *jsonschema.Reflector, ip ImportPath) error {
 	dir := ip.SourceDirectory
 	if !filepath.IsAbs(dir) {
 		relPath := filepath.Clean(dir)
-		return r.AddGoComments(ip.ModuleImportPath, relPath)
+		if err := r.AddGoComments(ip.ModuleImportPath, relPath); err != nil {
+			return err
+		}
+		sanitizeCommentMap(r.CommentMap)
+		return nil
 	}
 	absDir := filepath.Clean(dir)
 	return withWorkingDir(absDir, func() error {
-		return r.AddGoComments(ip.ModuleImportPath, ".")
+		if err := r.AddGoComments(ip.ModuleImportPath, "."); err != nil {
+			return err
+		}
+		sanitizeCommentMap(r.CommentMap)
+		return nil
 	})
+}
+
+func sanitizeCommentMap(m map[string]string) {
+	if m == nil {
+		return
+	}
+	for k, v := range m {
+		if sanitized := sanitizeCommentText(v); sanitized != v {
+			m[k] = sanitized
+		}
+	}
+}
+
+func sanitizeCommentText(text string) string {
+	if text == "" {
+		return text
+	}
+	return strings.Join(strings.Fields(text), " ")
 }
 
 func withWorkingDir(dir string, fn func() error) error {

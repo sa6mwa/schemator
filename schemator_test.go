@@ -170,7 +170,11 @@ func TestAddGoCommentsForImportPathWithAbsoluteDir(t *testing.T) {
 	writeFile(t, filepath.Join(dir, "types.go"), `package foo
 
 // DemoType is an example type.
-type DemoType struct{}
+type DemoType struct {
+	// Info summary line.
+	// Wrapped onto a new line.
+	Info string
+}
 `)
 
 	r := &jsonschema.Reflector{}
@@ -181,9 +185,9 @@ type DemoType struct{}
 	if err := addGoCommentsForImportPath(r, ip); err != nil {
 		t.Fatalf("addGoCommentsForImportPath() error = %v", err)
 	}
-	comment := r.CommentMap["example.com/temp/foo.DemoType"]
-	if !strings.Contains(comment, "example type") {
-		t.Fatalf("expected comment to include description, got %q", comment)
+	comment := r.CommentMap["example.com/temp/foo.DemoType.Info"]
+	if comment != "Info summary line. Wrapped onto a new line." {
+		t.Fatalf("expected sanitized comment, got %q", comment)
 	}
 }
 
