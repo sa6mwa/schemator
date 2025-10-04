@@ -307,7 +307,7 @@ func TestWriteSchemasGeneratesMultiple(t *testing.T) {
 	ctx := logport.ContextWithLogger(context.Background(), logger)
 	gen := New(ctx, nil)
 	outDir := t.TempDir()
-	if err := gen.WriteSchemas(filepath.Join(outDir, "schema-"), example.Subject{}, example.Example{}); err != nil {
+	if err := gen.WriteSchemas(outDir, example.Subject{}, example.Example{}); err != nil {
 		t.Fatalf("WriteSchemas() error = %v", err)
 	}
 	files, err := os.ReadDir(outDir)

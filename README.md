@@ -52,7 +52,7 @@ importPaths := []schemator.ImportPath{
 generator := schemator.New(ctx, required, importPaths...)
 ```
 
-Calling `generator.Generate(model)` returns the JSON Schema bytes for the supplied model type. `WriteSchema` and `WriteSchemas` are convenience helpers for writing the schema to disk.
+Calling `generator.Generate(model)` returns the JSON Schema bytes for the supplied model type. `WriteSchema` writes a single schema to an explicit path, while `WriteSchemas` takes an output directory and emits one `<Type>.schema.json` file per model.
 
 ## Usage Examples
 
@@ -129,7 +129,7 @@ func main() {
         schemator.ImportPath{ModuleImportPath: "time"},
     )
 
-    if err := gen.WriteSchemas("schemas/", example.Subject{}, example.Example{}); err != nil {
+    if err := gen.WriteSchemas("schemas", example.Subject{}, example.Example{}); err != nil {
         logger.Fatal("failed to generate schemas", "error", err)
     }
 }
@@ -149,10 +149,7 @@ gen := schemator.New(ctx, nil,
 )
 ```
 
-When `SourceDirectory` is omitted, schemator will:
-
-- Use `go list -f '{{.Dir}}' <module>` for module-aware lookups.
-- Use `runtime.GOROOT()/src/<pkg>` for standard library packages.
+When `SourceDirectory` is omitted, schemator shells out to `go list -f '{{.Dir}}' <module>` to locate the directory. This works for both module-aware and standard-library packages, so no additional handling is required for packages such as `time`.
 
 ### 4. Custom directories
 

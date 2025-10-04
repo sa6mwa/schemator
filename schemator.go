@@ -100,8 +100,8 @@ type Generator interface {
 	// rendered json schema to filenamePath.
 	WriteSchema(model any, filenamePath string) error
 	// WriteSchemas writes every model mentioned into auto-generated filenames
-	// prefixed with filePrefix.
-	WriteSchemas(filePrefix string, models ...any) error
+	// inside outputDir.
+	WriteSchemas(outputDir string, models ...any) error
 }
 
 type SchemaBytes []byte
@@ -186,8 +186,8 @@ func (g *generator) WriteSchema(model any, filenamePath string) error {
 	return err
 }
 
-func (g *generator) WriteSchemas(filePrefix string, models ...any) error {
-	l := logport.LoggerFromContext(g.ctx).With("filePrefix", filePrefix, "models", models)
+func (g *generator) WriteSchemas(outputDir string, models ...any) error {
+	l := logport.LoggerFromContext(g.ctx).With("outputDir", outputDir, "models", models)
 	if len(models) == 0 {
 		l.Debug("WriteSchemas: no models provided")
 		return nil
@@ -198,7 +198,7 @@ func (g *generator) WriteSchemas(filePrefix string, models ...any) error {
 			l.Debug("Unable to reflect filename (string) from model (any), skipping", "model", model)
 			continue
 		}
-		if err := g.WriteSchema(model, filePrefix+filename+".schema.json"); err != nil {
+		if err := g.WriteSchema(model, filepath.Join(outputDir, filename+".schema.json")); err != nil {
 			return err
 		}
 	}

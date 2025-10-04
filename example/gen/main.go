@@ -26,7 +26,7 @@ func main() {
 	// generator := schemator.New(ctx, files, schemator.ImportPathsWithLocal(ctx, "github.com/google/uuid", "time")...)
 
 	generator := schemator.New(ctx, mustExist)
-	if err := generator.WriteSchemas("schemas/", example.Subject{}, example.Example{}); err != nil {
+	if err := generator.WriteSchemas("schemas", example.Subject{}, example.Example{}); err != nil {
 		l.Fatal("Error generating schemas", "error", err)
 	}
 }
