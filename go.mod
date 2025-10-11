@@ -1,12 +1,12 @@
-module github.com/sa6mwa/schemator
+module pkt.systems/schemator
 
 go 1.25.1
 
 require (
 	github.com/google/uuid v1.6.0
 	github.com/invopop/jsonschema v0.13.0
-	github.com/sa6mwa/logport v0.2.0
 	k8s.io/apimachinery v0.34.1
+	pkt.systems/logport v0.9.0
 )
 
 require (
@@ -17,7 +17,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.3-0.20250322232337-35a7c28c31ee // indirect

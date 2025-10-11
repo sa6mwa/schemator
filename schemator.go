@@ -23,7 +23,7 @@ import (
 	"sync"
 
 	"github.com/invopop/jsonschema"
-	"github.com/sa6mwa/logport"
+	"pkt.systems/logport"
 )
 
 // If no ImportPaths are given, the generator will attempt to find go.mod, use

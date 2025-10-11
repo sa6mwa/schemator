@@ -13,9 +13,9 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/invopop/jsonschema"
-	"github.com/sa6mwa/logport"
-	"github.com/sa6mwa/logport/adapters/zerologger"
-	"github.com/sa6mwa/schemator/example"
+	"pkt.systems/logport"
+	"pkt.systems/logport/adapters/zerologger"
+	"pkt.systems/schemator/example"
 )
 
 func TestInferLocalImportPath_AppendsPackageName(t *testing.T) {
@@ -154,8 +154,8 @@ func TestResolveImportPathsAutoAddsDependencies(t *testing.T) {
 		}
 	}
 	for _, want := range []string{
-		"github.com/sa6mwa/schemator",
-		"github.com/sa6mwa/schemator/example",
+		"pkt.systems/schemator",
+		"pkt.systems/schemator/example",
 		"github.com/google/uuid",
 		"time",
 	} {

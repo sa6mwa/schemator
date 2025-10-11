@@ -4,10 +4,10 @@ import (
 	"context"
 	"os"
 
-	"github.com/sa6mwa/logport"
-	"github.com/sa6mwa/logport/adapters/zerologger"
-	"github.com/sa6mwa/schemator"
-	"github.com/sa6mwa/schemator/example"
+	"pkt.systems/logport"
+	"pkt.systems/logport/adapters/zerologger"
+	"pkt.systems/schemator"
+	"pkt.systems/schemator/example"
 )
 
 func main() {
